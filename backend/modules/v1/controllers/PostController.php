@@ -26,5 +26,15 @@ class PostController extends ApiController
 		];
 
 		return $actions;
+	}
+
+	public function checkAccess($action, $model = null, $params = [])
+	{
+	    // check if the user can access $action and $model
+	    // throw ForbiddenHttpException if access should be denied
+	    if(($action == 'update' || $action == 'delete') 
+	    		&& Yii::$app->user->identity->id != $model->id){
+	    	throw new ForbiddenHttpException("You cannot modify someone elses account");
+	    }
 	}	
 }
