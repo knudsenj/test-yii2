@@ -34,8 +34,11 @@ class PostController extends ActiveController
 
 	public function fields(){
 		return [
-			'username',
-			'since' => 'created_at'
+			'title',
+			'body',
+			'date' => 'created_at',
+			'author' => 'user',
+			'likes' => 'likes',
 		];
 	}	
 }
