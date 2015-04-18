@@ -37,8 +37,7 @@ class UserController extends ActiveController
 	public function fields(){
 		return [
 			'username',
-			'password',
-			'email',
+			'since' => 'created_at'
 		];
-	}
+	}	
 }
