@@ -7,6 +7,10 @@ use yii\rest\ActiveController;
 
 class ApiController extends ActiveController
 {
+	public $createScenario = 'create';
+
+	public $updateScenario = 'update';
+
 	public function behaviors()
 	{
 	    $behaviors = parent::behaviors();
