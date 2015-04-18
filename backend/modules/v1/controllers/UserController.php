@@ -21,6 +21,8 @@ class UserController extends ApiController
 
 		unset($actions['delete']);
 
+		$actions['options']['resourceOptions'] = ['GET', 'PUT', 'PATCH', 'HEAD', 'OPTIONS'];
+
 		return $actions;
 	}
 
