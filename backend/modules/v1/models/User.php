@@ -44,4 +44,12 @@ class User extends \common\models\User
     public function getPassword(){
         return $this->password_hash;
     }
+
+    public function fields(){
+        return [
+            'id',
+            'username',
+            'since' => 'created_at'
+        ];
+    }   
 }

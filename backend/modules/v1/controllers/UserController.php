@@ -31,11 +31,4 @@ class UserController extends ApiController
 	    	throw new ForbiddenHttpException;
 	    }
 	}
-
-	public function fields(){
-		return [
-			'username',
-			'since' => 'created_at'
-		];
-	}	
 }
