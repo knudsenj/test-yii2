@@ -28,8 +28,8 @@ class Post extends \common\models\Post
 
     public function getLikes(){
         return [
-            'count' => (integer) $this->getUsers()->count();
-            'users' => $this->users;
+            'count' => (integer) $this->getUsers()->count(),
+            'users' => $this->users,
         ];
     }
 }
