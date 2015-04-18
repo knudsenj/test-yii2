@@ -1,6 +1,7 @@
 <?php 
 namespace backend\modules\v1\controllers;
 
+use Yii;
 use yii\filters\auth\HttpBasicAuth;
 use yii\web\ForbiddenHttpException;
 
@@ -27,8 +28,8 @@ class UserController extends ApiController
 	{
 	    // check if the user can access $action and $model
 	    // throw ForbiddenHttpException if access should be denied
-	    if($action == 'update' && Yii::$app->user->identity != $model){
-	    	throw new ForbiddenHttpException;
+	    if($action == 'update' && Yii::$app->user->identity->id != $model->id){
+	    	throw new ForbiddenHttpException("You cannot modify someone elses account");
 	    }
 	}
 }
