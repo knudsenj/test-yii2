@@ -32,5 +32,6 @@ class m130524_201442_init extends Migration
     public function down()
     {
         $this->dropTable('general.user');
+        $this->execute("DROP SCHEMA general");
     }
 }
