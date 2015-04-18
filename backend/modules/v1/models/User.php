@@ -35,8 +35,10 @@ class User extends \common\models\User
         $rules[] = ['email', 'email'];
         $rules[] = ['username', 'match', 'pattern' => '/^\w*$/i'];
         $rules[] = ['password', 'string', 'min' => 5];
-        $rules[] = ['email', 'unique', 'lower(email)'];
-        $rules[] = ['username', 'unique', 'lower(username)'];
+        $rules[] = ['email', 'unique', 'targetAttribute'=>'lower(email)'];
+        $rules[] = ['username', 'unique', 'targetAttribute'=>'lower(username)'];
+
+        return $rules;
     }
 
     public function getPassword(){
