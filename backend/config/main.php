@@ -11,8 +11,35 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'v1' => [
+            'class' => 'app\modules\v1\Module',
+        ],
+    ],
     'components' => [
+        'UrlManager' => [
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
+            'showScriptName' => false,
+            'rules' => [
+                [
+                    'class' => 'yii\rest\UrlRule', 
+                    'controller' => ['v1/user'],
+                    'except' => ['delete'],
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['v1/post'],
+                    'extraPatterns' => [
+                        'POST {id}/like' => 'createLike',
+                        'DELETE {id}/like' => 'deleteLike',
+                        'GET,HEAD {id}/like' => 'indexLike',
+                        'OPTIONS {id}/like' => 'optionsLike',
+                    ],
+                ],
+            ],
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
