@@ -20,6 +20,9 @@ use Yii;
  */
 class Post extends \yii\db\ActiveRecord
 {
+    public $userClassName = 'common\models\User';
+    public $userLikesPostClassName = 'common\models\UserLikesPost';
+
     /**
      * @inheritdoc
      */
@@ -61,7 +64,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne($this->userClassName, ['id' => 'user_id']);
     }
 
     /**
@@ -69,7 +72,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function getUserLikesPosts()
     {
-        return $this->hasMany(UserLikesPost::className(), ['post_id' => 'id']);
+        return $this->hasMany($this->userLikesPostClassName, ['post_id' => 'id']);
     }
 
     /**
@@ -77,6 +80,8 @@ class Post extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('user_likes_post', ['post_id' => 'id']);
+        $userLikesPostClassName = $this->userLikesPostClassName;
+        return $this->hasMany($this->userClassName, ['id' => 'user_id'])
+            ->viaTable($userLikesPostClassName::tableName(), ['post_id' => 'id']);
     }
 }

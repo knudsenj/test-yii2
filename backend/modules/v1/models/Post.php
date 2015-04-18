@@ -19,6 +19,8 @@ use Yii;
  */
 class Post extends \common\models\Post
 {
+    public $userClassName = 'backend\modules\v1\models\User';
+
     public function scenarios(){
         return [
             'create' => ['title', 'body'],
