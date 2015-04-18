@@ -24,7 +24,9 @@ class PostController extends ApiController
 			'modelClass' => $this->modelClass,
 		];
 		$actions['deleteLike'] = [
-			'class' => 'backend\modules\v1\actions\DeleteLike',
+			'class' => 'backend\modules\v1\actions\DeleteLinkToUserAction',
+			'linkName' => 'users',
+			'modelClass' => $this->modelClass,
 		];
 		$actions['indexLike'] = [
 			'class' => 'backend\modules\v1\actions\IndexLike',
