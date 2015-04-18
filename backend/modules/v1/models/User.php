@@ -1,12 +1,5 @@
 <?php
-namespace common\models;
-
-use Yii;
-use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
-use yii\db\Expression;
-use yii\web\IdentityInterface;
+namespace backend\models\v1\models;
 
 /**
  * User model
@@ -20,7 +13,7 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property string $password write-only password
+ * @property string $password 
  */
 class User extends \common\models\User
 {
