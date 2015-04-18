@@ -1,5 +1,5 @@
 <?php
-namespace backend\models\v1\models;
+namespace backend\modules\v1\models;
 
 /**
  * User model
