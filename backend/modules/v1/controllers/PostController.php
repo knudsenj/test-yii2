@@ -1,6 +1,9 @@
 <?php 
 namespace backend\modules\v1\controllers;
 
+use Yii;
+use yii\web\ForbiddenHttpException;
+
 class PostController extends ApiController
 {
 	public $modelClass = 'backend\modules\v1\models\Post';
@@ -33,8 +36,8 @@ class PostController extends ApiController
 	    // check if the user can access $action and $model
 	    // throw ForbiddenHttpException if access should be denied
 	    if(($action == 'update' || $action == 'delete') 
-	    		&& Yii::$app->user->identity->id != $model->id){
-	    	throw new ForbiddenHttpException("You cannot modify someone elses account");
+	    		&& Yii::$app->user->identity->id != $model->user_id){
+	    	throw new ForbiddenHttpException("You cannot modify someone elses post");
 	    }
 	}	
 }
