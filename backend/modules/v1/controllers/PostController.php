@@ -26,16 +26,5 @@ class PostController extends ApiController
 		];
 
 		return $actions;
-	}
-
-
-	public function fields(){
-		return [
-			'title',
-			'body',
-			'date' => 'created_at',
-			'author' => 'user',
-			'likes' => 'likes',
-		];
 	}	
 }

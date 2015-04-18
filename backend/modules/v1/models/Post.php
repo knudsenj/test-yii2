@@ -32,4 +32,14 @@ class Post extends \common\models\Post
             'users' => $this->users,
         ];
     }
+
+    public function fields(){
+        return [
+            'title',
+            'body',
+            'date' => 'created_at',
+            'author' => 'user',
+            'likes' => 'likes',
+        ];
+    }
 }
