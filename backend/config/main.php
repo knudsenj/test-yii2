@@ -13,11 +13,11 @@ return [
     'bootstrap' => ['log'],
     'modules' => [
         'v1' => [
-            'class' => 'app\modules\v1\Module',
+            'class' => 'backend\modules\v1\Module',
         ],
     ],
     'components' => [
-        'UrlManager' => [
+        'urlManager' => [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => true,
             'showScriptName' => false,
@@ -26,7 +26,6 @@ return [
                     'class' => 'yii\rest\UrlRule', 
                     'controller' => ['v1/user'],
                     'except' => ['delete'],
-
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
@@ -52,9 +51,6 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
-        ],
-        'errorHandler' => [
-            'errorAction' => 'site/error',
         ],
     ],
     'params' => $params,

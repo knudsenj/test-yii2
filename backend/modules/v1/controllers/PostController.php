@@ -6,6 +6,8 @@ use yii\rest\ActiveController;
 
 class PostController extends ActiveController
 {
+	public $modelClass = 'backend\modules\v1\models\Post';
+
 	public function behaviors()
 	{
 	    $behaviors = parent::behaviors();

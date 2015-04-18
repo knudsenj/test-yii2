@@ -7,6 +7,8 @@ use yii\web\ForbiddenHttpException;
 
 class UserController extends ActiveController
 {
+	public $modelClass = 'backend\modules\v1\models\User';
+
 	public function behaviors()
 	{
 	    $behaviors = parent::behaviors();
