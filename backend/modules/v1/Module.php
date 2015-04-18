@@ -1,5 +1,5 @@
-<?php
-namespace api\modules\v1;
+<?php 
+namespace backend\modules\v1;
 
 use Yii;
 
