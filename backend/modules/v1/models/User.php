@@ -31,7 +31,7 @@ class User extends \common\models\User
     {
         $rules = parent::rules();
 
-        $rules[] = [['username', 'email', 'password'], 'required', 'on'=>'create'];
+        $rules[] = [['username', 'email', 'password'], 'required', 'on'=>['create']];
         $rules[] = ['email', 'email'];
         $rules[] = ['username', 'match', 'pattern' => '/^\w*$/i'];
         $rules[] = ['password', 'string', 'min' => 5];

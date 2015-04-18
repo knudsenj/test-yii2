@@ -2,20 +2,16 @@
 namespace backend\modules\v1\controllers;
 
 use yii\filters\auth\HttpBasicAuth;
-use yii\rest\ActiveController;
 use yii\web\ForbiddenHttpException;
 
-class UserController extends ActiveController
+class UserController extends ApiController
 {
 	public $modelClass = 'backend\modules\v1\models\User';
 
 	public function behaviors()
 	{
 	    $behaviors = parent::behaviors();
-	    $behaviors['authenticator'] = [
-	        'class' => HttpBasicAuth::className(),
-	        'except' => 'create',
-	    ];
+	    $behaviors['authenticator']['except'] = ['create'];
 	    return $behaviors;
 	}
 

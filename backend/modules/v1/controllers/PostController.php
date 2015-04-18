@@ -1,21 +1,9 @@
 <?php 
 namespace backend\modules\v1\controllers;
 
-use yii\filters\auth\HttpBasicAuth;
-use yii\rest\ActiveController;
-
-class PostController extends ActiveController
+class PostController extends ApiController
 {
 	public $modelClass = 'backend\modules\v1\models\Post';
-
-	public function behaviors()
-	{
-	    $behaviors = parent::behaviors();
-	    $behaviors['authenticator'] = [
-	        'class' => HttpBasicAuth::className(),
-	    ];
-	    return $behaviors;
-	}
 
 	public function actions(){
 		$actions = parent::actions();
