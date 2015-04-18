@@ -8,6 +8,13 @@ class PostController extends ApiController
 	public function actions(){
 		$actions = parent::actions();
 
+		$actions['create'] = [
+			'class' => 'backend\modules\v1\actions\CreateWithOwnerAction',
+			'ownerAttribute' => 'user_id',
+			'scenario' => 'create',
+			'modelClass' => $this->modelClass,
+		];
+
 		$actions['createLike'] = [
 			'class' => 'backend\modules\v1\actions\CreateLike',
 		];
