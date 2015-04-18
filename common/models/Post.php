@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "general.post".
@@ -22,6 +24,19 @@ class Post extends \yii\db\ActiveRecord
 {
     public $userClassName = 'common\models\User';
     public $userLikesPostClassName = 'common\models\UserLikesPost';
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'value' => new Expression('NOW()'),
+            ]
+        ];
+    }
 
     /**
      * @inheritdoc

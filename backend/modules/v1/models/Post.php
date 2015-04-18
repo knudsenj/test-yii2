@@ -44,4 +44,9 @@ class Post extends \common\models\Post
             'likes' => 'likes',
         ];
     }
+
+    public function afterSave($insert, $changedAttributes){
+        $this->refresh();
+        parent::afterSave($insert, $changedAttributes);
+    }
 }
