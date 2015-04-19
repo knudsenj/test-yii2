@@ -29,9 +29,13 @@ class Post extends \common\models\Post
     }
 
     public function getLikes(){
+        $userLikesPostClassName = $this->userLikesPostClassName;
         return [
             'count' => (integer) $this->getUsers()->count(),
-            'users' => $this->users,
+            'users' => $this->getUsers()
+                ->joinWith("userLikesPosts")
+                ->orderBy([$userLikesPostClassName::tableName().'.created_at'=>SORT_DESC])
+                ->limit(3)->all(),
         ];
     }
 
