@@ -17,6 +17,8 @@ namespace backend\modules\v1\models;
  */
 class User extends \common\models\User
 {
+    public $postClassName = 'backend\modules\v1\models\Post';
+
     public function scenarios(){
         return [
             'create' => ['username', 'email', 'password'],

@@ -27,6 +27,9 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
+    public $postClassName = 'common\models\Post';
+    public $userLikesPostClassName = 'common\models\UserLikesPost';
+
     /**
      * @inheritdoc
      */
@@ -188,6 +191,17 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public function getPosts(){
+        $userLikesPostClassName = $this->userLikesPostClassName;
+        return $this->hasMany($this->postClassName, ['id' => 'post_id'])
+            ->viaTable($userLikesPostClassName::tableName(), ['user_id' => 'id']);
+    }
+
+    public function getUserLikesPosts()
+    {
+        return $this->hasMany($this->userLikesPostClassName, ['user_id' => 'id']);
     }
 
     public function beforeSave($insert){
