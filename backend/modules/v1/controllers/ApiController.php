@@ -16,15 +16,7 @@ class ApiController extends ActiveController
 	    $behaviors = parent::behaviors();
 	    $behaviors['authenticator'] = [
 	        'class' => HttpBasicAuth::className(),
-	        'auth' => [$this, 'auth'],
 	    ];
 	    return $behaviors;
-	}
-
-	public function auth($username, $password){
-		$user = User::findByUsername($username);
-		if (isset($user) && $user->validatePassword($password)){
-			return $user;
-		}
 	}
 }

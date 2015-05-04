@@ -37,6 +37,16 @@ return [
                         'OPTIONS {id}/like' => 'optionsLike',
                     ],
                 ],
+                [
+                    'class' => 'yii\rest\UrlRule', 
+                    'controller' => ['v1/access-token'],
+                    'patterns' => [
+                        'POST'=>'create', 
+                        'PUT,PATCH' => 'update', 
+                        'DELETE' => 'delete'
+                    ],
+                    'pluralize' => false,
+                ],
             ],
         ],
         'user' => [
