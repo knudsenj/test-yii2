@@ -11,6 +11,10 @@ class PostController extends ApiController
 {
 	public $modelClass = 'backend\modules\v1\models\Post';
 
+	const PAGE_SIZE = 20;
+
+	const PAGE_MAX = 50;
+
 	public function actions(){
 		$actions = parent::actions();
 
@@ -34,8 +38,10 @@ class PostController extends ApiController
 		$actions['indexLike'] = [
 			'class' => 'yii\rest\IndexAction',
 			'modelClass' => $this->modelClass,
-			'prepareDataProvider' => [$this, 'prepareDataProvider'],
+			'prepareDataProvider' => [$this, 'prepareLikesDataProvider'],
 		];
+
+		$actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
 
 		return $actions;
 	}
@@ -50,7 +56,33 @@ class PostController extends ApiController
 	    }
 	}	
 
-	public function prepareDataProvider(){
+	public function prepareDataProvider() {
+		$modelClass = $this->modelClass;
+		$query = $modelClass::find();
+
+		$count = Yii::$app->request->get('count', static::PAGE_SIZE);
+		$count = $count > static::PAGE_MAX ? static::PAGE_MAX : $count;
+		$count = $count < 0 ? 0 : $count;
+
+		$since_id = Yii::$app->request->get('since_id');
+		$max_id = Yii::$app->request->get('max_id'); 
+
+		if ($since_id != '') {
+            $query->andWhere("id > :since_id", [':since_id' => $since_id]);
+        }
+        if ($max_id != '') {
+            $query->andWhere("id < :max_id", [':max_id' => $max_id]);
+        }
+        $query->limit($count)
+			->orderBy(['id'=>SORT_DESC]);
+
+		return new ActiveDataProvider([
+			'query' => $query,
+			'pagination' => false,
+		]);
+	}
+
+	public function prepareLikesDataProvider(){
 		$modelClass = $this->modelClass;
 		$id = Yii::$app->request->get('id');
 		$model = $modelClass::findOne($id);
