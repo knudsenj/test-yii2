@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "general.post".
@@ -53,7 +54,7 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'body', 'user_id'], 'required'],
-            [['title', 'body'], 'string'],
+            [['title', 'body', 'photo_original', 'photo_160', 'photo_320', 'photo_640'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['user_id'], 'integer']
         ];
@@ -71,6 +72,10 @@ class Post extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'user_id' => 'User ID',
+            'photo_original' => 'Original Photo',
+            'photo_160' => '160px Wide Photo',
+            'photo_320' => '320px Wide Photo',
+            'photo_640' => '640px Wide Photo',
         ];
     }
 
@@ -98,5 +103,30 @@ class Post extends \yii\db\ActiveRecord
         $userLikesPostClassName = $this->userLikesPostClassName;
         return $this->hasMany($this->userClassName, ['id' => 'user_id'])
             ->viaTable($userLikesPostClassName::tableName(), ['post_id' => 'id']);
+    }
+
+    private function getPhotoUrl($relativePath){
+        if ($path != null) {
+            if (strpos($relativePath, 'http') === 0) {
+                return $relativePath;
+            }
+            return Url::base(true).$relativePath;
+        }
+    }
+
+    public function getPhotoOriginal(){
+        return $this->getPhotoUrl($this->photo_original);
+    }
+
+    public function getPhoto160(){
+        return $this->getPhotoUrl($this->photo_160);
+    }
+
+    public function getPhoto320(){
+        return $this->getPhotoUrl($this->photo_320);
+    }
+
+    public function getPhoto640(){
+        return $this->getPhotoUrl($this->photo_640);
     }
 }
