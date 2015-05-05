@@ -7,6 +7,7 @@ use yii\base\Model;
 use yii\helpers\Url;
 use yii\rest\Action;
 use yii\web\ServerErrorHttpException;
+use yii\web\UploadedFile;
 
 class CreateWithOwnerAction extends Action
 {

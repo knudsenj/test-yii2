@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Intervention\Image\ImageManagerStatic as Image;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -108,7 +109,7 @@ class Post extends \yii\db\ActiveRecord
     }
 
     private function getPhotoUrl($relativePath){
-        if ($path != null) {
+        if ($relativePath != null) {
             if (strpos($relativePath, 'http') === 0) {
                 return $relativePath;
             }
@@ -133,14 +134,38 @@ class Post extends \yii\db\ActiveRecord
     }
 
     private function savePhotos(){
-        
+        if (isset($this->photo)){
+            $name = uniqid();
+            $directory = "/media/photos/";
+            $base = Yii::$app->basePath."/web";
+            $relative = "{$directory}original/{$name}.".$this->photo->extension;
+            $absolute = "{$base}{$relative}";
+
+            $this->photo->saveAs($absolute);
+            $this->photo_original = $relative;
+
+            $image = Image::make($absolute);
+            for($i = 160; $i <= 640; $i*=2){
+                $attribute = "photo_$i";
+                if($image->width() > $i) {
+                    $image->backup();
+                    $relative = "{$directory}$i/${name}.jpg";
+                    $absolute = "{$base}{$relative}";
+                    $image->widen($i)
+                        ->save($absolute);
+                    $this->$attribute = $relative;
+                    $image->reset(); 
+                } else {
+                    $this->$attribute = $relative;
+                }
+            }
+        }
     }
 
     public function beforeSave($insert){
         if(parent::beforeSave($insert)){
-            if(isset($this->photo)){
-                $this->savePhotos();
-            }
+            $this->savePhotos();
         }
+        return true;
     }
 }
