@@ -47,6 +47,10 @@ class Post extends \common\models\Post
             'date' => 'created_at',
             'author' => 'user',
             'likes' => 'likes',
+            'photo_original_url' => 'photoOriginal',
+            'photo_160_url' => 'photo160',
+            'photo_320_url' => 'photo320',
+            'photo_640_url' => 'photo640',
         ];
     }
 
