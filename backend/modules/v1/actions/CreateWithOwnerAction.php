@@ -28,6 +28,8 @@ class CreateWithOwnerAction extends Action
 
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
 
+        $model->photo = UploadedFile::getInstanceByName('photo');
+
         $model->{$this->ownerAttribute} = Yii::$app->user->identity->id;
 
         if ($model->save()) {

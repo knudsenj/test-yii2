@@ -23,7 +23,7 @@ class Post extends \common\models\Post
 
     public function scenarios(){
         return [
-            'create' => ['title', 'body'],
+            'create' => ['title', 'body', 'photo'],
             'update' => ['title', 'body'],
         ];
     }

@@ -26,6 +26,8 @@ class Post extends \yii\db\ActiveRecord
     public $userClassName = 'common\models\User';
     public $userLikesPostClassName = 'common\models\UserLikesPost';
 
+    public $photo;
+
     /**
      * @inheritdoc
      */
@@ -128,5 +130,17 @@ class Post extends \yii\db\ActiveRecord
 
     public function getPhoto640(){
         return $this->getPhotoUrl($this->photo_640);
+    }
+
+    private function savePhotos(){
+        
+    }
+
+    public function beforeSave($insert){
+        if(parent::beforeSave($insert)){
+            if(isset($this->photo)){
+                $this->savePhotos();
+            }
+        }
     }
 }
